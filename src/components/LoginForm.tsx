@@ -15,7 +15,7 @@ interface LoginFormProps {
 }
 
 export const LoginForm = ({ onLogin }: LoginFormProps) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
@@ -52,19 +52,19 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
       return;
     }
     
-    if (!email || !token) {
+    if (!username || !token) {
       toast({
         title: "Data tidak lengkap",
-        description: "Silakan isi email dan token dengan benar",
+        description: "Silakan isi username dan token dengan benar",
         variant: "destructive",
       });
       return;
     }
 
-    if (!email.includes("@")) {
+    if (username.trim().length < 3) {
       toast({
-        title: "Email tidak valid",
-        description: "Silakan masukkan alamat email yang benar",
+        title: "Username tidak valid",
+        description: "Username minimal 3 karakter",
         variant: "destructive",
       });
       return;
@@ -73,7 +73,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
     setIsLoading(true);
     
     try {
-      const pesertaData = await validateLogin(email, token);
+      const pesertaData = await validateLogin(username, token);
       
       if (pesertaData) {
         onLogin(pesertaData);
@@ -84,7 +84,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
       } else {
         toast({
           title: "Login gagal",
-          description: "Email atau token tidak valid",
+          description: "Username atau token tidak valid",
           variant: "destructive",
         });
       }
@@ -164,7 +164,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
             {!canLogin && !DEV_CONFIG.showDevIndicator && (
               <div className="mt-3">
                 <p className="text-sm text-red-600 font-medium mb-2">
-                  Login akan dibuka dalam:
+                  Pengumuman akan dibuka dalam:
                 </p>
                 <div className="grid grid-cols-4 gap-1">
                   <div className="bg-white rounded-lg p-2 border border-gray-200 shadow">
@@ -211,17 +211,18 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium">
-              Email
+            <Label htmlFor="username" className="text-sm font-medium">
+              Username
             </Label>
             <Input
-              id="email"
-              type="email"
-              placeholder="nama@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              placeholder="Masukkan username Anda"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className={`${deviceInfo.isMobile ? 'h-10' : 'h-12'} border-2 focus:border-primary transition-colors`}
               disabled={isLoading || !canLogin}
+              autoComplete="username"
             />
           </div>
 
@@ -262,6 +263,26 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
           <p>UNDIP Abu Robocon Research Team</p>
           <p className="mt-1">Portal Pengumuman Magang</p>
         </div>
+
+        {/* Debug Info - Development Only */}
+        {DEV_CONFIG.isDevelopment && (
+          <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
+            <p className="font-semibold mb-2">🔧 Debug - Test Credentials:</p>
+            <div className="grid grid-cols-2 gap-2 text-left">
+              <div>
+                <p className="font-mono">ahmadbudi / ABC123</p>
+                <p className="font-mono">sitinurhaliza / DEF456</p>
+                <p className="font-mono">johndoe / GHI789</p>
+              </div>
+              <div>
+                <p className="font-mono">janesmith / JKL012</p>
+                <p className="font-mono">mikejohnson / MNO345</p>
+                <p className="font-mono">sarahwilson / PQR678</p>
+              </div>
+            </div>
+            <p className="mt-2 text-gray-500">Username / Token untuk testing</p>
+          </div>
+        )}
       </Card>
     </div>
   );

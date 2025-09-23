@@ -6,6 +6,9 @@ export const DEVELOPMENT_MODE = 1;
 
 // Development mode settings
 export const DEV_CONFIG = {
+  // Development mode flag
+  isDevelopment: DEVELOPMENT_MODE === 1,
+  
   // Bypass time restrictions when DEVELOPMENT_MODE = 1
   bypassTimeRestriction: DEVELOPMENT_MODE === 1,
   

@@ -1,0 +1,7 @@
+username,token,nama,status_lolos,program_studi,fakultas,divisi,email
+ahmadbudi,ABC123,Ahmad Budi Santoso,LOLOS,Teknik Informatika,Fakultas Teknik,Program,ahmad.budi@email.com
+sitinurhaliza,DEF456,Siti Nurhaliza,LOLOS,Teknik Elektro,Fakultas Teknik,Elektrik,siti.nurhaliza@email.com
+johndoe,GHI789,John Doe,TIDAK LOLOS,Teknik Mesin,Fakultas Teknik,Mekanik,john.doe@email.com
+janesmith,JKL012,Jane Smith,LOLOS,Teknik Industri,Fakultas Teknik,Mekanik,jane.smith@email.com
+muhammadrizki,MNO345,Muhammad Rizki,LOLOS,Sistem Informasi,Fakultas Ilmu Komputer,Program,muhammad.rizki@email.com
+sarahamanda,PQR678,Sarah Amanda,TIDAK LOLOS,Teknik Sipil,Fakultas Teknik,Elektrik,sarah.amanda@email.com
