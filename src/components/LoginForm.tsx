@@ -7,6 +7,7 @@ import { toast } from "@/hooks/use-toast";
 import { validateLogin, PesertaData } from "@/lib/pesertaData";
 import { isLoginTimeAllowed, getFormattedJakartaTime, getCountdownBreakdown } from "@/lib/timeUtils";
 import { DEV_CONFIG } from "@/config/devConfig";
+import { isMobileDevice, isSlowConnection } from "@/utils/deviceDetection";
 import { Logo } from "./Logo";
 
 interface LoginFormProps {
@@ -20,6 +21,10 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
   const [currentTime, setCurrentTime] = useState("");
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [canLogin, setCanLogin] = useState(false);
+  const [deviceInfo] = useState(() => ({
+    isMobile: isMobileDevice(),
+    isSlowConnection: isSlowConnection(),
+  }));
 
   useEffect(() => {
     const updateTime = () => {
@@ -29,10 +34,11 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
     };
 
     updateTime();
-    const interval = setInterval(updateTime, 1000);
+    // Reduce timer frequency on slow connections
+    const interval = setInterval(updateTime, deviceInfo.isSlowConnection ? 5000 : 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [deviceInfo.isSlowConnection]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,9 +99,18 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
     }
   };
 
+  // Use simplified classes for mobile
+  const containerClasses = deviceInfo.isMobile 
+    ? "min-h-screen bg-gradient-hero flex items-center justify-center p-4"
+    : "min-h-screen bg-gradient-hero flex items-center justify-center p-4";
+    
+  const cardClasses = deviceInfo.isMobile
+    ? "w-full max-w-md p-6 bg-white border-2 border-gray-200 shadow-lg animate-fade-in"
+    : "w-full max-w-md p-8 bg-white/90 border-2 border-gray-200 shadow-2xl animate-fade-in";
+
   return (
-    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4">
-      <Card className="w-full max-w-md p-8 bg-white/90 border-2 border-gray-200 shadow-2xl animate-fade-in">
+    <div className={containerClasses}>
+      <Card className={cardClasses}>
         {/* Development Mode Indicator */}
         {DEV_CONFIG.showDevIndicator && (
           <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-3 mb-6 text-center">
@@ -105,22 +120,31 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
             </p>
           </div>
         )}
-        
-        <div className="text-center mb-8">
-          <div className="mb-4 flex justify-center">
-            <Logo size={80} />
+
+        {/* Mobile Connection Warning */}
+        {deviceInfo.isSlowConnection && (
+          <div className="bg-orange-100 border border-orange-400 rounded-lg p-3 mb-4 text-center">
+            <p className="text-xs font-medium text-orange-800">
+              📶 Koneksi lambat terdeteksi - Interface disederhanakan
+            </p>
           </div>
-          <h1 className="text-3xl font-bold text-black">
+        )}
+        
+        <div className="text-center mb-6">
+          <div className="mb-4 flex justify-center">
+            <Logo size={deviceInfo.isMobile ? 60 : 80} />
+          </div>
+          <h1 className={`font-bold text-black ${deviceInfo.isMobile ? 'text-2xl' : 'text-3xl'}`}>
             BANDHAYUDHA
           </h1>
-          <p className="text-black mt-2">
+          <p className={`text-black mt-2 ${deviceInfo.isMobile ? 'text-sm' : ''}`}>
             Pengumuman Hasil Seleksi Berkas
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Time Display */}
-          <div className={`rounded-lg p-4 text-center border-2 shadow-lg ${
+          <div className={`rounded-lg p-3 text-center border-2 shadow-lg ${
             DEV_CONFIG.showDevIndicator 
               ? 'bg-green-50 border-green-200' 
               : 'bg-white/80 border-gray-200'
@@ -130,7 +154,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
             }`}>
               Waktu Server {DEV_CONFIG.showDevIndicator ? '(Mode Dev)' : ''}
             </p>
-            <p className={`text-lg font-bold ${
+            <p className={`${deviceInfo.isMobile ? 'text-base' : 'text-lg'} font-bold ${
               DEV_CONFIG.showDevIndicator ? 'text-green-900' : 'text-gray-900'
             }`}>
               {currentTime}
@@ -138,37 +162,37 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
             
             {/* Countdown Display */}
             {!canLogin && !DEV_CONFIG.showDevIndicator && (
-              <div className="mt-4">
-                <p className="text-sm text-red-600 font-medium mb-3">
+              <div className="mt-3">
+                <p className="text-sm text-red-600 font-medium mb-2">
                   Login akan dibuka dalam:
                 </p>
-                <div className="grid grid-cols-4 gap-2">
-                  <div className="bg-white rounded-lg p-3 border-2 border-gray-200 shadow-lg">
-                    <div className="text-xl font-bold text-gray-700">
+                <div className="grid grid-cols-4 gap-1">
+                  <div className="bg-white rounded-lg p-2 border border-gray-200 shadow">
+                    <div className={`${deviceInfo.isMobile ? 'text-lg' : 'text-xl'} font-bold text-gray-700`}>
                       {countdown.days.toString().padStart(2, '0')}
                     </div>
                     <div className="text-xs text-gray-600 uppercase font-medium">
                       Hari
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg p-3 border-2 border-gray-200 shadow-lg">
-                    <div className="text-xl font-bold text-gray-700">
+                  <div className="bg-white rounded-lg p-2 border border-gray-200 shadow">
+                    <div className={`${deviceInfo.isMobile ? 'text-lg' : 'text-xl'} font-bold text-gray-700`}>
                       {countdown.hours.toString().padStart(2, '0')}
                     </div>
                     <div className="text-xs text-gray-600 uppercase font-medium">
                       Jam
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg p-3 border-2 border-gray-200 shadow-lg">
-                    <div className="text-xl font-bold text-gray-700">
+                  <div className="bg-white rounded-lg p-2 border border-gray-200 shadow">
+                    <div className={`${deviceInfo.isMobile ? 'text-lg' : 'text-xl'} font-bold text-gray-700`}>
                       {countdown.minutes.toString().padStart(2, '0')}
                     </div>
                     <div className="text-xs text-gray-600 uppercase font-medium">
                       Menit
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg p-3 border-2 border-gray-200 shadow-lg">
-                    <div className="text-xl font-bold text-gray-700">
+                  <div className="bg-white rounded-lg p-2 border border-gray-200 shadow">
+                    <div className={`${deviceInfo.isMobile ? 'text-lg' : 'text-xl'} font-bold text-gray-700`}>
                       {countdown.seconds.toString().padStart(2, '0')}
                     </div>
                     <div className="text-xs text-gray-600 uppercase font-medium">
@@ -196,7 +220,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
               placeholder="nama@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-12 border-2 focus:border-primary transition-colors"
+              className={`${deviceInfo.isMobile ? 'h-10' : 'h-12'} border-2 focus:border-primary transition-colors`}
               disabled={isLoading || !canLogin}
             />
           </div>
@@ -211,14 +235,14 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
               placeholder="Masukkan token akses"
               value={token}
               onChange={(e) => setToken(e.target.value)}
-              className="h-12 border-2 focus:border-primary transition-colors"
+              className={`${deviceInfo.isMobile ? 'h-10' : 'h-12'} border-2 focus:border-primary transition-colors`}
               disabled={isLoading || !canLogin}
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full h-12 bg-gradient-primary text-primary-foreground font-semibold shadow-medium hover:shadow-strong transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`w-full ${deviceInfo.isMobile ? 'h-10' : 'h-12'} bg-gradient-primary text-primary-foreground font-semibold shadow-medium hover:shadow-strong transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
             disabled={isLoading || !canLogin}
           >
             {isLoading ? (
@@ -234,7 +258,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
           </Button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-muted-foreground">
+        <div className={`mt-4 text-center text-sm text-muted-foreground ${deviceInfo.isMobile ? 'text-xs' : ''}`}>
           <p>UNDIP Abu Robocon Research Team</p>
           <p className="mt-1">Portal Pengumuman Magang</p>
         </div>
