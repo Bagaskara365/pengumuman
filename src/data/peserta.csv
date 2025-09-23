@@ -1,0 +1,7 @@
+email,token,nama,status_lolos,program_studi,fakultas,divisi,pesan_khusus
+ahmad.budi@email.com,ABC123,Ahmad Budi Santoso,LOLOS,Teknik Informatika,Fakultas Teknik,Program,Selamat! Anda lolos ke tahap wawancara
+siti.nurhaliza@email.com,DEF456,Siti Nurhaliza,LOLOS,Teknik Elektro,Fakultas Teknik,Elektrik,Selamat! Anda lolos ke tahap wawancara
+john.doe@email.com,GHI789,John Doe,TIDAK LOLOS,Teknik Mesin,Fakultas Teknik,Mekanik,Mohon maaf belum berhasil kali ini
+jane.smith@email.com,JKL012,Jane Smith,LOLOS,Teknik Industri,Fakultas Teknik,Mekanik,Selamat! Anda lolos ke tahap wawancara
+muhammad.rizki@email.com,MNO345,Muhammad Rizki,LOLOS,Sistem Informasi,Fakultas Ilmu Komputer,Program,Selamat! Anda lolos ke tahap wawancara
+sarah.amanda@email.com,PQR678,Sarah Amanda,TIDAK LOLOS,Teknik Sipil,Fakultas Teknik,Elektrik,Mohon maaf belum berhasil kali ini
