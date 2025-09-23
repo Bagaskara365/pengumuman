@@ -24,9 +24,16 @@ export const AnnouncementDashboard = ({ pesertaData, onLogout }: AnnouncementDas
   };
 
   const handleJoinWhatsApp = () => {
-    // Link grup WhatsApp - ganti dengan link yang sesuai
-    const whatsappGroupLink = "https://chat.whatsapp.com/BKDgwUUJ8yWIRKe3zJjmsg";
-    window.open(whatsappGroupLink, '_blank');
+    const whatsappGroupLink = pesertaData.whatsapp_link;
+    if (whatsappGroupLink) {
+      window.open(whatsappGroupLink, '_blank');
+    } else {
+      toast({
+        title: "Link tidak tersedia",
+        description: "Link grup WhatsApp tidak tersedia untuk status Anda.",
+        variant: "destructive",
+      });
+    }
   };
 
   const StatusIcon = isAccepted ? CheckCircle : XCircle;
@@ -157,7 +164,7 @@ export const AnnouncementDashboard = ({ pesertaData, onLogout }: AnnouncementDas
         )}
 
         {/* QR Code for WhatsApp Group */}
-        {isAccepted && (
+        {isAccepted && pesertaData.whatsapp_link && (
           <Card className="p-6 bg-white/90 border-2 border-gray-200 shadow-2xl animate-fade-in mb-6">
             <h3 className="text-xl font-bold text-foreground mb-4 text-center">
               Bergabung dengan Grup WhatsApp
@@ -165,7 +172,7 @@ export const AnnouncementDashboard = ({ pesertaData, onLogout }: AnnouncementDas
             <div className="text-center">
               <div className="mx-auto mb-4 flex justify-center">
                 <QRCodeComponent 
-                  value="https://chat.whatsapp.com/BKDgwUUJ8yWIRKe3zJjmsg" 
+                  value={pesertaData.whatsapp_link} 
                   size={200}
                   className="shadow-lg"
                 />

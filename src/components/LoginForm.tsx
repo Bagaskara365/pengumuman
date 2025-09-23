@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 import { validateLogin, PesertaData } from "@/lib/pesertaData";
 import { isLoginTimeAllowed, getFormattedJakartaTime, getCountdownBreakdown } from "@/lib/timeUtils";
-import { DEV_CONFIG } from "@/config/devConfig";
 import { isMobileDevice, isSlowConnection } from "@/utils/deviceDetection";
 import { Logo } from "./Logo";
 
@@ -111,16 +110,6 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
   return (
     <div className={containerClasses}>
       <Card className={cardClasses}>
-        {/* Development Mode Indicator */}
-        {DEV_CONFIG.showDevIndicator && (
-          <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-3 mb-6 text-center">
-            <p className="text-sm font-bold text-yellow-800">🔧 MODE DEVELOPMENT</p>
-            <p className="text-xs text-yellow-700 mt-1">
-              Login bisa diakses kapan saja untuk keperluan editing
-            </p>
-          </div>
-        )}
-
         {/* Mobile Connection Warning */}
         {deviceInfo.isSlowConnection && (
           <div className="bg-orange-100 border border-orange-400 rounded-lg p-3 mb-4 text-center">
@@ -144,24 +133,16 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Time Display */}
-          <div className={`rounded-lg p-3 text-center border-2 shadow-lg ${
-            DEV_CONFIG.showDevIndicator 
-              ? 'bg-green-50 border-green-200' 
-              : 'bg-white/80 border-gray-200'
-          }`}>
-            <p className={`text-sm font-medium mb-1 ${
-              DEV_CONFIG.showDevIndicator ? 'text-green-800' : 'text-gray-800'
-            }`}>
-              Waktu Server {DEV_CONFIG.showDevIndicator ? '(Mode Dev)' : ''}
+          <div className="rounded-lg p-3 text-center border-2 shadow-lg bg-white/80 border-gray-200">
+            <p className="text-sm font-medium mb-1 text-gray-800">
+              Waktu Server
             </p>
-            <p className={`${deviceInfo.isMobile ? 'text-base' : 'text-lg'} font-bold ${
-              DEV_CONFIG.showDevIndicator ? 'text-green-900' : 'text-gray-900'
-            }`}>
+            <p className={`${deviceInfo.isMobile ? 'text-base' : 'text-lg'} font-bold text-gray-900`}>
               {currentTime}
             </p>
             
             {/* Countdown Display */}
-            {!canLogin && !DEV_CONFIG.showDevIndicator && (
+            {!canLogin && (
               <div className="mt-3">
                 <p className="text-sm text-red-600 font-medium mb-2">
                   Pengumuman akan dibuka dalam:
@@ -201,12 +182,6 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
                   </div>
                 </div>
               </div>
-            )}
-            
-            {DEV_CONFIG.showDevIndicator && canLogin && (
-              <p className="text-sm text-green-600 mt-2 font-medium">
-                ✅ Login tersedia (Mode Development)
-              </p>
             )}
           </div>
 
@@ -263,26 +238,6 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
           <p>UNDIP Abu Robocon Research Team</p>
           <p className="mt-1">Portal Pengumuman Magang</p>
         </div>
-
-        {/* Debug Info - Development Only */}
-        {DEV_CONFIG.isDevelopment && (
-          <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
-            <p className="font-semibold mb-2">🔧 Debug - Test Credentials:</p>
-            <div className="grid grid-cols-2 gap-2 text-left">
-              <div>
-                <p className="font-mono">ahmadbudi / ABC123</p>
-                <p className="font-mono">sitinurhaliza / DEF456</p>
-                <p className="font-mono">johndoe / GHI789</p>
-              </div>
-              <div>
-                <p className="font-mono">janesmith / JKL012</p>
-                <p className="font-mono">mikejohnson / MNO345</p>
-                <p className="font-mono">sarahwilson / PQR678</p>
-              </div>
-            </div>
-            <p className="mt-2 text-gray-500">Username / Token untuk testing</p>
-          </div>
-        )}
       </Card>
     </div>
   );

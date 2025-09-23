@@ -58,7 +58,7 @@ export const QRCodeComponent = ({ value, size = 200, className = "" }: QRCodeCom
       style={{ width: size, height: size }}
     >
       <img 
-        src="/src/assets/qr/whatsapp-group.jpg"
+        src="/src/assets/qr/whatsapp-group.png"
         alt="QR Code WhatsApp Group Bandhayudha"
         className="w-full h-full object-contain rounded"
         onError={(e) => {
