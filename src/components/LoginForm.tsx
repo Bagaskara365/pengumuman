@@ -45,7 +45,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
     if (!canLogin) {
       toast({
         title: "Akses Belum Dibuka",
-        description: `Login akan dibuka pada tanggal 24 September 2025 pukul 15:00`,
+        description: `Login akan dibuka pada tanggal 28 September 2025 pukul 15:00`,
         variant: "destructive",
       });
       return;
@@ -127,7 +127,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
             BANDHAYUDHA
           </h1>
           <p className={`text-black mt-2 ${deviceInfo.isMobile ? 'text-sm' : ''}`}>
-            Pengumuman Hasil Seleksi Berkas
+            Pengumuman Hasil Seleksi Lolos Magang
           </p>
         </div>
 

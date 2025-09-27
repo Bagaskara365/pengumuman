@@ -7,7 +7,7 @@
 1. Buka file: `src/config/devConfig.ts`
 2. Ubah nilai `DEVELOPMENT_MODE`:
    - **`DEVELOPMENT_MODE = 1`** → Login bisa kapan saja (untuk development/editing)
-   - **`DEVELOPMENT_MODE = 0`** → Login hanya bisa 24 Sept 2025 jam 10:00 WIB (untuk production)
+   - **`DEVELOPMENT_MODE = 0`** → Login hanya bisa 28 Sept 2025 jam 15:00 WIB (untuk production)
 
 ### Mode Development (DEVELOPMENT_MODE = 1)
 
@@ -29,7 +29,7 @@
 
 **🔒 Keamanan:**
 
-- Login hanya bisa mulai 24 September 2025 pukul 10:00 WIB
+- Login hanya bisa mulai 28 September 2025 pukul 15:00 WIB
 - Sesuai jadwal asli yang diminta
 - Tidak ada bypass
 - Tampilan normal untuk peserta

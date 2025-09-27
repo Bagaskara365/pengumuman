@@ -41,9 +41,9 @@ export const AnnouncementDashboard = ({ pesertaData, onLogout }: AnnouncementDas
   const statusBg = isAccepted ? "bg-success/10" : "bg-destructive/10";
 
   const nextSteps = isAccepted ? [
-    "Bergabung dengan grup WhatsApp peserta lolos",
-    "Cek group Whatsapp untuk jadwal wawancara",
-    "Datang tepat waktu sesuai jadwal wawancara yang diberikan"
+    "Bergabung dengan grup WhatsApp peserta yang diterima magang",
+    "Cek group Whatsapp untuk jadwal orientasi dan informasi lebih lanjut",
+    "Bersiap untuk memulai kegiatan magang sesuai jadwal yang diberikan"
   ] : [
     "Jangan berkecil hati, tingkatkan skill dan pengalaman",
     "Ikuti program magang selanjutnya",
@@ -112,7 +112,7 @@ export const AnnouncementDashboard = ({ pesertaData, onLogout }: AnnouncementDas
                 <div>
                   <p className="font-medium text-foreground">Status Seleksi</p>
                   <p className="text-muted-foreground">
-                    {isAccepted ? "Lolos ke Tahap Wawancara" : "Belum Lolos Seleksi Berkas"}
+                    {isAccepted ? "Diterima Magang" : "Belum Lolos Seleksi Magang"}
                   </p>
                 </div>
               </div>

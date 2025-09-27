@@ -1,6 +1,6 @@
 # Bandhayudha - Portal Pengumuman Magang 2025
 
-Portal pengumuman hasil seleksi berkas magang UNDIP Abu Robocon Research Team 2025.
+Portal pengumuman hasil seleksi lolos magang UNDIP Abu Robocon Research Team 2025.
 
 ## 🚀 **Perubahan yang Telah Dilakukan**
 

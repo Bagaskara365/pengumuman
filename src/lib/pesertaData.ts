@@ -16,7 +16,7 @@ export interface PesertaData {
 // Function to automatically generate message based on status
 const generateMessage = (status: 'LOLOS' | 'TIDAK LOLOS'): string => {
   if (status === 'LOLOS') {
-    return 'Selamat! Anda lolos ke tahap wawancara. Silakan bergabung dengan grup WhatsApp untuk informasi lebih lanjut.';
+    return 'Selamat! Anda diterima magang Bandhayudha. Silakan bergabung dengan grup WhatsApp untuk informasi lebih lanjut.';
   }
   return 'Mohon maaf belum berhasil kali ini. Terima kasih atas partisipasi Anda dan semangat untuk kesempatan berikutnya!';
 };
@@ -59,7 +59,7 @@ const loadCSVData = async (): Promise<PesertaData[]> => {
                 fakultas: fakultas,
                 divisi: divisi,
                 pesan_khusus: generateMessage(status),
-                whatsapp_link: status === 'LOLOS' ? 'https://chat.whatsapp.com/HygTyDHTuTcAbf9YPhaId7?mode=ems_copy_t' : undefined
+                whatsapp_link: status === 'LOLOS' ? 'https://chat.whatsapp.com/LQrfAGr2wAi5zv6UUbq6Hi?mode=ems_copy_t' : undefined
               };
             }).filter(p => p.username && p.token && p.nama);
             
@@ -91,7 +91,7 @@ const getFallbackData = (): PesertaData[] => {
       fakultas: "Fakultas Teknik",
       divisi: "Elektrik",
       pesan_khusus: generateMessage("LOLOS"),
-      whatsapp_link: "https://chat.whatsapp.com/HygTyDHTuTcAbf9YPhaId7?mode=ems_copy_t"
+      whatsapp_link: "https://chat.whatsapp.com/LQrfAGr2wAi5zv6UUbq6Hi?mode=ems_copy_t"
     },
     {
       username: "rizky.afitra",

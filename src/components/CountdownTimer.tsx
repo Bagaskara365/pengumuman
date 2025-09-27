@@ -61,7 +61,7 @@ export const CountdownTimer = ({ targetDate, onComplete }: CountdownTimerProps) 
             Pengumuman Segera Dibuka
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Portal pengumuman hasil seleksi berkas magang UNDIP Abu Robocon Research Team
+            Portal pengumuman hasil seleksi lolos magang UNDIP Abu Robocon Research Team
             akan dibuka dalam:
           </p>
         </div>
@@ -78,14 +78,13 @@ export const CountdownTimer = ({ targetDate, onComplete }: CountdownTimerProps) 
             Informasi Penting
           </h3>
           <ul className="text-muted-foreground text-left space-y-2">
-            <li>• Peserta yang lolos akan lanjut ke tahap wawancara</li>
-            <li>• Peserta yang lolos akan diarahkan ke grup lolos seleksi berkas</li>
+            <li>• Peserta yang lolos akan diarahkan ke grup lolos seleksi magang Bandhayudha</li>
           </ul>
         </div>
 
         <div className="mt-8 text-sm text-muted-foreground">
           <p>UNDIP Abu Robocon Research Team</p>
-          <p className="mt-1">Portal Pengumuman Seleksi Magang 2025</p>
+          <p className="mt-1">Portal Pengumuman Seleksi Magang Bandhayudha 2025</p>
         </div>
       </Card>
     </div>

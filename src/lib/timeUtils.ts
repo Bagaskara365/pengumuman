@@ -15,7 +15,7 @@ export const isLoginTimeAllowed = (): boolean => {
   }
   
   const jakartaTime = getCurrentJakartaTime();
-  const allowedLoginTime = moment.tz('2025-09-24 15:00:00', 'Asia/Jakarta').toDate();
+  const allowedLoginTime = moment.tz('2025-09-28 15:00:00', 'Asia/Jakarta').toDate();
   
   return jakartaTime >= allowedLoginTime;
 };
@@ -33,7 +33,7 @@ export const getCountdownBreakdown = () => {
   }
   
   const jakartaTime = getCurrentJakartaTime();
-  const allowedLoginTime = moment.tz('2025-09-24 15:00:00', 'Asia/Jakarta').toDate();
+  const allowedLoginTime = moment.tz('2025-09-28 15:00:00', 'Asia/Jakarta').toDate();
   
   if (jakartaTime >= allowedLoginTime) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -57,7 +57,7 @@ export const getTimeUntilLoginAllowed = (): string => {
   }
   
   const jakartaTime = getCurrentJakartaTime();
-  const allowedLoginTime = moment.tz('2025-09-24 15:00:00', 'Asia/Jakarta').toDate();
+  const allowedLoginTime = moment.tz('2025-09-28 15:00:00', 'Asia/Jakarta').toDate();
   
   if (jakartaTime >= allowedLoginTime) {
     return 'Login sudah diperbolehkan';

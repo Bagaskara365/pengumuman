@@ -2,7 +2,7 @@
 // Set this to 1 for development mode (bypass time restrictions)
 // Set this to 0 for production mode (use actual time restrictions)
 
-export const DEVELOPMENT_MODE = 0;
+export const DEVELOPMENT_MODE = 1;
 
 // Development mode settings
 export const DEV_CONFIG = {
@@ -21,4 +21,4 @@ export const DEV_CONFIG = {
 
 // Instructions:
 // DEVELOPMENT_MODE = 1: Can login anytime (for development/editing)
-// DEVELOPMENT_MODE = 0: Must wait until 24 September 2025 10:00 WIB (for production)
+// DEVELOPMENT_MODE = 0: Must wait until 28 September 2025 15:00 WIB (for production)

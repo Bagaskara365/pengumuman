@@ -9,7 +9,7 @@ const Index = () => {
   const [pesertaData, setPesertaData] = useState<PesertaData | null>(null);
   const [isAnnouncementTime, setIsAnnouncementTime] = useState(false);
 
-  // Set announcement time - for demo, set to 30 seconds from now
+  // Set announcement time - for demo, set to 20 seconds from now
   // In real implementation, this would be the actual announcement date
   const announcementDate = new Date(Date.now() + 20 * 1000);
 
