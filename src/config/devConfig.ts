@@ -2,7 +2,7 @@
 // Set this to 1 for development mode (bypass time restrictions)
 // Set this to 0 for production mode (use actual time restrictions)
 
-export const DEVELOPMENT_MODE = 1;
+export const DEVELOPMENT_MODE = 0;
 
 // Development mode settings
 export const DEV_CONFIG = {
