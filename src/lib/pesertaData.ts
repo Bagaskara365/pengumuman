@@ -1,4 +1,4 @@
-import Papa from 'papaparse';
+import type Papa from 'papaparse';
 
 export interface PesertaData {
   username: string;
@@ -24,7 +24,12 @@ const generateMessage = (status: 'LOLOS' | 'TIDAK LOLOS'): string => {
 // Function to load CSV data from data folder
 const loadCSVData = async (): Promise<PesertaData[]> => {
   try {
-    const csvModule = await import('../data/pesertalolos.csv?raw');
+    // Lazy load Papa parse
+    const [{ default: Papa }, csvModule] = await Promise.all([
+      import('papaparse'),
+      import('../data/pesertalolos.csv?raw')
+    ]);
+    
     const csvContent = csvModule.default;
     
     return new Promise((resolve, reject) => {

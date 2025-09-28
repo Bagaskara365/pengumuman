@@ -37,6 +37,11 @@
     
     <!-- Error handling script -->
     <script>
+      // Cloudflare tunnel compatibility
+      if (window.location.protocol === 'https:' && window.location.hostname.includes('.trycloudflare.com')) {
+        console.log('Cloudflare tunnel detected');
+      }
+      
       window.addEventListener('error', function(e) {
         console.error('Script error:', e.error);
         if (e.error && e.error.message && e.error.message.includes('Loading chunk')) {
@@ -48,71 +53,10 @@
         console.error('Unhandled promise rejection:', e.reason);
       });
     </script>
-    
-    <!-- Loading styles -->
-    <style>
-      .loading-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, hsl(214 100% 45% / 0.1), hsl(220 100% 55% / 0.15));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        flex-direction: column;
-      }
-      
-      .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid #e5e7eb;
-        border-top: 4px solid #1d4ed8;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      
-      .loading-text {
-        margin-top: 16px;
-        color: #1d4ed8;
-        font-family: system-ui, -apple-system, sans-serif;
-        font-weight: 600;
-      }
-    </style>
   </head>
 
   <body>
-    <!-- Loading screen -->
-    <div id="loading-screen" class="loading-screen">
-      <div class="loading-spinner"></div>
-      <div class="loading-text">Memuat Portal...</div>
-    </div>
-    
     <div id="root"></div>
-    
-    <script>
-      // Hide loading screen when app is ready
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          const loadingScreen = document.getElementById('loading-screen');
-          if (loadingScreen) {
-            loadingScreen.style.opacity = '0';
-            loadingScreen.style.transition = 'opacity 0.3s ease';
-            setTimeout(function() {
-              loadingScreen.remove();
-            }, 300);
-          }
-        }, 500);
-      });
-    </script>
-    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

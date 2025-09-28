@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -9,54 +8,55 @@ export default defineConfig(({ mode }) => ({
     host: "0.0.0.0", // Allow external connections
     port: 2025,
     strictPort: true, // Don't try other ports if 2025 is occupied
-    // Add performance optimizations for external access
     cors: true,
     hmr: {
       port: 2026, // Use different port for HMR to avoid conflicts
     },
-    // Allow specific hosts for domain access
-    allowedHosts: [
-      "pengumuman.bandhayudha.icu",
-      "pengumuman.bandhayudha.com",
-      "localhost",
-      ".localhost",
-      "127.0.0.1",
-      "::1"
-    ],
+    // Remove allowedHosts for Cloudflare tunnel compatibility
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // Performance optimizations
+  // Optimized build configuration
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Split vendor chunks for better caching
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-toast', '@radix-ui/react-dialog', '@radix-ui/react-label'],
-          router: ['react-router-dom'],
-          query: ['@tanstack/react-query'],
+        manualChunks: (id: string) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('@radix-ui')) {
+              return 'radix';
+            }
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor';
+            }
+            if (id.includes('react-router')) {
+              return 'router';
+            }
+            if (id.includes('lucide-react')) {
+              return 'ui';
+            }
+            if (id.includes('moment-timezone') || id.includes('papaparse')) {
+              return 'utils';
+            }
+            return 'vendor';
+          }
         },
       },
     },
-    // Optimize for mobile
-    target: ['es2015', 'safari11'],
-    cssCodeSplit: true,
+    target: ['es2015'],
+    cssCodeSplit: false, // Keep CSS together for faster loading
     sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
-      },
-    },
+    minify: 'esbuild', // Faster than terser
+    chunkSizeWarningLimit: 1000, // Increase warning limit
   },
-  // Optimize dev server for external access
+  // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    include: ['react', 'react-dom', 'react-router-dom', 'moment-timezone', 'papaparse'],
+    exclude: ['@tanstack/react-query'], // Only load if needed
   },
+  // Add base for Cloudflare tunnel compatibility  
+  base: './',
 }));
