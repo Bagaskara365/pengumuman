@@ -12,7 +12,15 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       port: 2026, // Use different port for HMR to avoid conflicts
     },
-    // Remove allowedHosts for Cloudflare tunnel compatibility
+    // Allow specific hosts for domain access
+    allowedHosts: [
+      "pengumuman.bandhayudha.com",
+      "pengumuman.bandhayudha.icu",
+      "localhost",
+      ".localhost",
+      "127.0.0.1",
+      "::1"
+    ],
   },
   plugins: [react()],
   resolve: {
